@@ -8,16 +8,17 @@
     "server"
   ],
   "scripts": {
+    "build": "npm --workspace server run build && npm --workspace client run build",
     "dev": "concurrently \"npm:dev:*\"",
     "dev:client": "npm --workspace client run dev",
     "dev:server": "npm --workspace server run dev",
-    "build": "npm --workspace server run build && npm --workspace client run build",
-    "start": "npm --workspace server run start",
     "lint": "eslint 'client/src/**/*.{ts,tsx,js,jsx}' 'server/src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "eslint 'client/src/**/*.{ts,tsx,js,jsx}' 'server/src/**/*.{ts,tsx,js,jsx}' --fix",
+    "format": "prettier . --write",
+    "start": "npm --workspace server run start",
     "test:e2e": "cypress run --e2e",
     "test:component": "cypress run --component",
-    "test:all": "npm run test:e2e && npm run test:component",
+    "test": "npm run test:e2e && npm run test:component",
     "test:open:e2e": "cypress open --e2e",
     "test:open:component": "cypress open --component"
   },
@@ -34,8 +35,10 @@
     "concurrently": "^9.1.2",
     "cypress": "^14.4.0",
     "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.1.0",
+    "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1"

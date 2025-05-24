@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config(); // check the env for PORT
+
 import express from 'express';
 
 const app = express();
@@ -14,6 +17,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello from the TypeScript server!' });
 });
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('Serving in production mode');
+  // Serves client's dist build output folder
+  app.use(express.static('../client/dist'));
+}
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
