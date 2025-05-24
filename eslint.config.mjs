@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
 export default defineConfig([
   {
     // ignore the compiled files, packages and this lint file itself
-    ignores: ["dist/**", "node_modules/**", "*.mjs"],
+    ignores: ["dist/**", "node_modules/**", "*.config.*"],
   },
   {
     rules: {
