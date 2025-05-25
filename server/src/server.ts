@@ -22,6 +22,6 @@ if (process.env.NODE_ENV === 'production') {
   // Serves client's dist build output folder
   app.use(express.static('../client/dist'));
 }
-app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT.toString()}}`);
+});
