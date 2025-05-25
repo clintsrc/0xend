@@ -7,13 +7,32 @@ import configPrettier from 'eslint-config-prettier';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
+  // ignore the compiled files and packages
   {
-    // ignore the compiled files and packages
-    ignores: ['dist/**', 'node_modules/**'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'client/dist/**',
+      'server/dist/**',
+      'build/**',
+      'coverage/**',
+      '**/*.config.*',
+      '**/*.test.*',
+      '**/*.spec.*',
+      '**/*.d.ts',
+      '**/*.min.*',
+      '**/*.map',
+      '**/*.json',
+      '**/*.md',
+    ],
   },
   {
     rules: {
-      // quotes: ["error", "single"],
+      'prettier/prettier': 'error',
+      'no-unused-vars': 'warn',
+      // 'no-console': 'warn',
+      'prefer-const': 'error',
+      'no-template-curly-in-string': 'error'
     },
   },
   // Base JS setup with globals
