@@ -1,0 +1,48 @@
+{
+  "name": "0xend",
+  "version": "1.0.0",
+  "description": "Hexend: a cyberpunk-themed Dead Man's Switch app designed to simulate hacker-induced system failures.",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "npm --workspace server run build && npm --workspace client run build",
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:client": "npm --workspace client run dev",
+    "dev:server": "npm --workspace server run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "npm --workspace server run start",
+    "test:e2e": "cypress run --e2e",
+    "test:component": "cypress run --component",
+    "test": "npm run test:e2e && npm run test:component",
+    "test:open:e2e": "cypress open --e2e",
+    "test:open:component": "cypress open --component"
+  },
+  "keywords": [],
+  "author": "Clint Jones",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/vite-dev-server": "^6.0.3",
+    "@eslint/js": "^9.27.0",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "concurrently": "^9.1.2",
+    "cypress": "^14.4.0",
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.1.0",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  }
+}
