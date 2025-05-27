@@ -5,8 +5,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: true, // bind to 0.0.0.0 instead of default localhost
     port: 3000, // note: vite client listens on 5173 by default
-    open: true, // automatically open the browser to the url on start
+    open: false, // automatically open the browser to the url on start (not for docker!)
     proxy: {
       '/api': 'http://localhost:3001',
     },

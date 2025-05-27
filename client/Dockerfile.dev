@@ -1,0 +1,29 @@
+# build image:
+#   docker build -f client/Dockerfile.dev -t 0xend-client-dev .
+# run container:
+#   docker run -it --rm -p 3000:3000 0xend-client-dev
+
+# Use latest lightweight node release version
+FROM node:22-alpine
+
+LABEL maintainer="clinton.alan.jones@gmail.com"
+LABEL stage="development"
+
+# Set working directory inside the container
+WORKDIR /app/client
+
+# Copy shared config
+COPY tsconfig.json /app/tsconfig.json
+COPY client/package*.json ./
+
+RUN npm install
+
+# Copy the rest of the client source code
+# NOTE: be sure to maintain .dockerignore
+COPY client/ .
+
+# Expose the React dev server port
+EXPOSE 3000
+
+# Start React app in dev mode with hot reloading
+CMD ["npm", "run", "dev"]
