@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000, // note: vite client listens on 5173 by default
     open: false, // automatically open the browser to the url on start (not for docker!)
     proxy: {
-      '/api': 'http://localhost:3001',
+        '/api': 'http://0xend-server:3001',
     },
   },
 });
