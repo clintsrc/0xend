@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "description": "Hexend: a cyberpunk-themed Dead Man's Switch app designed to simulate hacker-induced system failures.",
   "private": true,
+  "type": "module",
   "workspaces": [
     "client",
-    "server"
+    "server",
+    "cypress"
   ],
-  "type": "module",
   "scripts": {
     "build": "npm --workspace server run build && npm --workspace client run build",
-    "dev": "concurrently \"npm:dev:*\"",
-    "dev:client": "npm --workspace client run dev",
-    "dev:server": "npm --workspace server run dev",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "npm run dev --workspace client",
+    "dev:server": "npm run dev --workspace server",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "npm --workspace server run start",
+    "start": "npm run start --workspace server",
     "test:e2e": "cypress run --e2e",
     "test:component": "cypress run --component",
     "test": "npm run test:e2e && npm run test:component",
