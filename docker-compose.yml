@@ -1,0 +1,55 @@
+# -----------------------------------------------------------------------------
+#  0xEND Docker Compose Configuration
+# -----------------------------------------------------------------------------
+#  This file defines development services for the 0xEND project using
+#  Docker Compose v2 syntax. It builds and runs client and server containers
+#  with hot reloading, using a shared Docker network.
+#
+#  Usage:
+#    docker compose up --build
+#    docker compose down
+#
+#  Notes:
+#    - Compose version key is omitted (v2+ auto-detects)
+#    - Uses named volumes for persistence (optional)
+#    - Assumes Dockerfiles use dev dependencies (no NODE_ENV set)
+# -----------------------------------------------------------------------------
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile.dev
+    container_name: 0xend-client
+    ports:
+      - "3000:3000"
+    networks:
+      - 0xend-dev
+    depends_on:
+      - server
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://0xend-server:3001
+    volumes:
+      - ./client:/app/client
+      - /app/client/node_modules
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile.dev
+    container_name: 0xend-server
+    ports:
+      - "3001:3001"
+    networks:
+      - 0xend-dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./server:/app/server
+      - /app/server/node_modules
+
+networks:
+  0xend-dev:
+    name: 0xend-dev
+    driver: bridge

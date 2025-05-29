@@ -16,7 +16,7 @@ WORKDIR /app/server
 COPY tsconfig.json /app/tsconfig.json
 COPY server/package*.json ./
 
-RUN npm install --omit=prod=false
+RUN npm install
 
 #### Source layer
 # NOTE: be sure to maintain .dockerignore
