@@ -13,8 +13,8 @@ app.use((req, res) => {
   res.json({ message: 'Hello from the TypeScript server!' });
 });
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from the TypeScript server!' });
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok' });
 });
 
 if (process.env.NODE_ENV === 'production') {

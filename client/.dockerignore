@@ -1,0 +1,25 @@
+# Dependencies and build artifacts
+node_modules
+dist
+coverage
+*.tsbuildinfo
+
+# IDE/editor metadata
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs and runtime
+*.log
+logs/
+*.pid
+
+# Docker and git
+Dockerfile*
+.dockerignore
+.git
+.gitignore
+
+# Configs and environment
+.env
