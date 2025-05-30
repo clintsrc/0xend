@@ -9,21 +9,23 @@ LABEL stage="development"
 
 # Set working directory inside the container
 # This is a monorepo, so we need client/server folders
-WORKDIR /app/client
+WORKDIR /app
 
 #### Dependency layer
-# Copy shared config
-COPY tsconfig.json /app/tsconfig.json
-COPY client/package*.json ./
+# Copy shared configs (monorepo layout)
+COPY package*.json ./
+COPY tsconfig.json .
 
+COPY client/package*.json ./client/
 RUN npm install
 
 #### Source layer
 # NOTE: be sure to maintain .dockerignore
-COPY client/ .
+COPY client/ ./client
 
 # Expose the React dev server port
 EXPOSE 3000
 
 # Start React app in dev mode with hot reloading
+WORKDIR /app/client
 CMD ["npm", "run", "dev"]
