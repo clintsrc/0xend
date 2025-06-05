@@ -1,0 +1,17 @@
+#
+# Prometheus configuration
+#
+# Send reports to a Grafana account
+#
+
+global:
+  scrape_interval: 15s
+remote_write:
+  - url: ${GRAFANA_PROM_URL}
+    basic_auth:
+      username: ${GRAFANA_PROM_USER}
+      password: ${GRAFANA_API_TOKEN}
+scrape_configs:
+  - job_name: 0xend-server
+    static_configs:
+      - targets: ['0xend-server:3001']
