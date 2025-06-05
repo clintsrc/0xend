@@ -5,10 +5,13 @@ import express from 'express';
 import client from 'prom-client';
 
 const app = express();
-const PORT = 3001;
+const PORT: number = parseInt(process.env.PORT || '3001', 10);
 
 // Collect default (mem, cpu) metrics
 client.collectDefaultMetrics();
+
+// Middleware
+app.use(express.json());
 
 // Basic health route
 app.get('/api/health', (_req, res) => {
@@ -19,18 +22,12 @@ app.get('/api/health', (_req, res) => {
 app.get('/metrics', async (_req, res) => {
   try {
     res.set('Content-type', client.register.contentType);
+    res.set('Cache-Control', 'no-store'); // no caching
     res.end(await client.register.metrics());
-  } catch (ex) {
-    res.status(500).end(ex);
+  } catch (err) {
+    console.error('Metrics error:', err);
+    res.status(500).end('Metrics collection failed');
   }
-});
-
-// app.use(express.json());
-/* Default route:
-   temporary: to verify the frontend is communicating with the backend */
-app.use((req, res) => {
-  console.log(`${req.method} request to ${req.url}`);
-  res.json({ message: 'Hello from the TypeScript server!' });
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -39,6 +36,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../client/dist'));
 }
 
+// Default route
+app.use((req, res) => {
+  console.log(`${req.method} request to ${req.url}`);
+  res.json({ message: 'Hello from the TypeScript server!' });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT.toString()}}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
